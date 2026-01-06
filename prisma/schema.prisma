@@ -1,0 +1,521 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum InsuranceType {
+  AUTO
+  HEALTH
+  LIFE
+  HOME
+  MOTORCYCLE
+  TRAVEL
+  BUSINESS
+  OTHER
+}
+
+enum PolicyStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  PENDING
+  SUSPENDED
+}
+
+enum CoverageType {
+  COMPREHENSIVE
+  THIRD_PARTY
+  FIRE_THEFT
+  BASIC
+  PREMIUM
+  CUSTOM
+}
+
+enum PaymentFrequency {
+  MONTHLY
+  QUARTERLY
+  SEMI_ANNUAL
+  ANNUAL
+}
+
+enum ClaimType {
+  ACCIDENT
+  THEFT
+  FIRE
+  MEDICAL
+  DAMAGE
+  LOSS
+  OTHER
+}
+
+enum ClaimStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum QuoteStatus {
+  PENDING
+  RECEIVED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum SwipeAction {
+  LIKE
+  DISLIKE
+  SUPER_LIKE
+  SKIP
+}
+
+enum DocumentType {
+  POLICY_DOCUMENT
+  CLAIM_DOCUMENT
+  ID_CARD
+  DRIVERS_LICENSE
+  VEHICLE_REGISTRATION
+  MEDICAL_REPORT
+  PROOF_OF_OWNERSHIP
+  PHOTO
+  OTHER
+}
+
+// ============================================
+// USER & AUTHENTICATION (NextAuth Compatible)
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // For credentials authentication
+  phone         String?   @unique
+
+  // Profile Information
+  dateOfBirth   DateTime?
+  address       String?
+  city          String?
+  country       String    @default("Paraguay")
+  zipCode       String?
+
+  // Preferences
+  preferredLanguage String @default("es")
+  notificationsEnabled Boolean @default(true)
+
+  // Metadata
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLogin     DateTime?
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  policies      Policy[]
+  claims        Claim[]
+  quotes        Quote[]
+  emergencyContacts EmergencyContact[]
+  activityLogs  ActivityLog[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// INSURANCE POLICIES
+// ============================================
+
+model Policy {
+  id              String         @id @default(cuid())
+  userId          String
+
+  // Policy Details
+  policyNumber    String         @unique
+  insuranceType   InsuranceType
+  provider        String         // Insurance company name
+  providerLogo    String?        // URL to logo
+
+  // Coverage
+  coverageType    CoverageType
+  coverageAmount  Decimal        @db.Decimal(12, 2)
+  deductible      Decimal?       @db.Decimal(12, 2)
+
+  // Dates
+  startDate       DateTime
+  endDate         DateTime
+  renewalDate     DateTime?
+
+  // Status & Payment
+  status          PolicyStatus   @default(PENDING)
+  premium         Decimal        @db.Decimal(12, 2)
+  paymentFrequency PaymentFrequency
+
+  // Additional Information
+  description     String?        @db.Text
+  terms           String?        @db.Text
+  notes           String?        @db.Text
+
+  // Insured Item Details (flexible JSON for different types)
+  insuredItem     Json?          // Car details, health info, property info, etc.
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  claims          Claim[]
+  documents       Document[]
+  renewals        PolicyRenewal[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([endDate])
+  @@map("policies")
+}
+
+// ============================================
+// CLAIMS (SINIESTROS)
+// ============================================
+
+model Claim {
+  id              String         @id @default(cuid())
+  userId          String
+  policyId        String
+
+  // Claim Details
+  claimNumber     String         @unique
+  claimType       ClaimType
+  status          ClaimStatus    @default(SUBMITTED)
+
+  // Incident Information
+  incidentDate    DateTime
+  incidentLocation String?
+  description     String         @db.Text
+  estimatedAmount Decimal?       @db.Decimal(12, 2)
+  approvedAmount  Decimal?       @db.Decimal(12, 2)
+
+  // Processing
+  submittedAt     DateTime       @default(now())
+  reviewedAt      DateTime?
+  completedAt     DateTime?
+  rejectionReason String?        @db.Text
+
+  // Additional Data
+  witnesses       Json?          // Array of witness information
+  policeReport    String?        // Reference number or URL
+  notes           String?        @db.Text
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  policy          Policy         @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  documents       Document[]
+  activities      ClaimActivity[]
+
+  @@index([userId])
+  @@index([policyId])
+  @@index([status])
+  @@map("claims")
+}
+
+model ClaimActivity {
+  id              String         @id @default(cuid())
+  claimId         String
+
+  // Activity Details
+  status          ClaimStatus
+  description     String         @db.Text
+  performedBy     String?        // User or system that performed the action
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+
+  // Relations
+  claim           Claim          @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@index([claimId])
+  @@map("claim_activities")
+}
+
+// ============================================
+// QUOTES & MARKETPLACE
+// ============================================
+
+model Quote {
+  id              String         @id @default(cuid())
+  userId          String
+
+  // Quote Details
+  quoteNumber     String         @unique
+  insuranceType   InsuranceType
+  coverageType    CoverageType
+  coverageAmount  Decimal        @db.Decimal(12, 2)
+
+  // Insured Item/Person Details
+  insuredDetails  Json           // Flexible data for different insurance types
+
+  // Quote Status
+  status          QuoteStatus    @default(PENDING)
+  expiresAt       DateTime
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providers       QuoteProvider[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([expiresAt])
+  @@map("quotes")
+}
+
+model QuoteProvider {
+  id              String         @id @default(cuid())
+  quoteId         String
+
+  // Provider Details
+  providerName    String
+  providerLogo    String?
+
+  // Offer Details
+  premium         Decimal        @db.Decimal(12, 2)
+  paymentFrequency PaymentFrequency
+  coverageDetails Json?
+  deductible      Decimal?       @db.Decimal(12, 2)
+
+  // Swipe/Match Data
+  swipeAction     SwipeAction?
+  matchedAt       DateTime?
+
+  // Rating & Reviews
+  rating          Decimal?       @db.Decimal(3, 2) // 0.00 to 5.00
+  reviewCount     Int            @default(0)
+
+  // Contact Information
+  contactEmail    String?
+  contactPhone    String?
+  website         String?
+
+  // Additional Details
+  features        Json?          // Array of features/benefits
+  exclusions      Json?          // Array of exclusions
+  terms           String?        @db.Text
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  quote           Quote          @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  @@index([quoteId])
+  @@index([swipeAction])
+  @@map("quote_providers")
+}
+
+// ============================================
+// DOCUMENTS & FILES
+// ============================================
+
+model Document {
+  id              String         @id @default(cuid())
+  userId          String?
+  policyId        String?
+  claimId         String?
+
+  // Document Details
+  name            String
+  type            DocumentType
+  description     String?
+
+  // File Information
+  fileUrl         String         // Supabase Storage URL
+  fileName        String
+  fileSize        Int            // Size in bytes
+  mimeType        String
+
+  // OCR & Processing
+  ocrProcessed    Boolean        @default(false)
+  ocrText         String?        @db.Text
+  ocrData         Json?          // Structured data extracted from OCR
+
+  // Verification
+  verified        Boolean        @default(false)
+  verifiedAt      DateTime?
+  verifiedBy      String?
+
+  // Metadata
+  uploadedAt      DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  policy          Policy?        @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  claim           Claim?         @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@index([policyId])
+  @@index([claimId])
+  @@index([type])
+  @@map("documents")
+}
+
+// ============================================
+// EMERGENCY CONTACTS
+// ============================================
+
+model EmergencyContact {
+  id              String         @id @default(cuid())
+  userId          String
+
+  // Contact Details
+  name            String
+  relationship    String
+  phone           String
+  email           String?
+
+  // Priority
+  isPrimary       Boolean        @default(false)
+  priority        Int            @default(1)
+
+  // Additional Information
+  address         String?
+  notes           String?
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("emergency_contacts")
+}
+
+// ============================================
+// POLICY RENEWALS
+// ============================================
+
+model PolicyRenewal {
+  id              String         @id @default(cuid())
+  policyId        String
+
+  // Renewal Details
+  renewalDate     DateTime
+  newEndDate      DateTime
+  newPremium      Decimal        @db.Decimal(12, 2)
+
+  // Status
+  reminded        Boolean        @default(false)
+  remindedAt      DateTime?
+  completed       Boolean        @default(false)
+  completedAt     DateTime?
+
+  // Changes
+  changes         Json?          // Any changes in coverage, terms, etc.
+  notes           String?        @db.Text
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  policy          Policy         @relation(fields: [policyId], references: [id], onDelete: Cascade)
+
+  @@index([policyId])
+  @@index([renewalDate])
+  @@map("policy_renewals")
+}
+
+// ============================================
+// ACTIVITY LOG
+// ============================================
+
+model ActivityLog {
+  id              String         @id @default(cuid())
+  userId          String
+
+  // Activity Details
+  action          String         // e.g., "policy_created", "claim_submitted"
+  entityType      String?        // e.g., "Policy", "Claim"
+  entityId        String?
+
+  // Details
+  description     String
+  metadata        Json?          // Additional context
+
+  // IP & Device
+  ipAddress       String?
+  userAgent       String?
+
+  // Metadata
+  createdAt       DateTime       @default(now())
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([action])
+  @@map("activity_logs")
+}
