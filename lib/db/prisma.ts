@@ -6,27 +6,40 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-const connectionString = process.env.DATABASE_URL
+function createPrismaClient(): PrismaClient {
+  const connectionString = process.env.DATABASE_URL
 
-let prismaInstance: PrismaClient
+  if (!connectionString) {
+    throw new Error('DATABASE_URL environment variable is not set')
+  }
 
-if (connectionString) {
   const pool = new Pool({ connectionString })
   const adapter = new PrismaPg(pool)
 
-  prismaInstance = new PrismaClient({
+  return new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-  })
-} else {
-  // Fallback sin adapter para desarrollo sin DB
-  prismaInstance = new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   })
 }
 
-export const prisma = globalForPrisma.prisma ?? prismaInstance
+// Only create the client when it's actually needed (lazy initialization)
+function getPrismaClient(): PrismaClient {
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = createPrismaClient()
+  }
+  return globalForPrisma.prisma
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Export a proxy that lazily initializes the Prisma client
+export const prisma = new Proxy({} as PrismaClient, {
+  get(_target, prop) {
+    const client = getPrismaClient()
+    const value = client[prop as keyof PrismaClient]
+    if (typeof value === 'function') {
+      return value.bind(client)
+    }
+    return value
+  },
+})
 
 export default prisma
