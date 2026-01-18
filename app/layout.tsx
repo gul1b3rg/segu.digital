@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
+import { SessionProvider } from "@/components/providers/session-provider"
 
-const inter = Inter({ subsets: ["latin"] })
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+})
 
 export const metadata: Metadata = {
   title: "SeguDigital - Tu seguro en un toque",
@@ -32,9 +36,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={cn(inter.className, "antialiased min-h-screen bg-background")}>
-        {children}
-        <Toaster />
+      <body className={cn(jakarta.variable, "font-sans antialiased min-h-screen bg-background")}>
+        <SessionProvider>
+          {children}
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   )

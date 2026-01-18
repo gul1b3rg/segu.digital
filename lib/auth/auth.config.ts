@@ -1,42 +1,42 @@
-import type { NextAuthConfig } from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
-import Google from 'next-auth/providers/google'
-import { z } from 'zod'
-import { prisma } from '@/lib/db/prisma'
-import bcrypt from 'bcryptjs'
+import { NextAuthConfig } from "next-auth"
+import Credentials from "next-auth/providers/credentials"
+import Google from "next-auth/providers/google"
+import { compare } from "bcryptjs"
+import { prisma } from "@/lib/db/prisma"
 
-const credentialsSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-})
-
-export default {
+export const authConfig: NextAuthConfig = {
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     Credentials({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
-        const validatedFields = credentialsSchema.safeParse(credentials)
-
-        if (!validatedFields.success) {
+        if (!credentials?.email || !credentials?.password) {
           return null
         }
 
-        const { email, password } = validatedFields.data
-
         const user = await prisma.user.findUnique({
-          where: { email },
+          where: {
+            email: credentials.email as string,
+          },
         })
 
         if (!user || !user.password) {
           return null
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        const isPasswordValid = await compare(
+          credentials.password as string,
+          user.password
+        )
 
-        if (!passwordMatch) {
+        if (!isPasswordValid) {
           return null
         }
 
@@ -50,35 +50,24 @@ export default {
     }),
   ],
   pages: {
-    signIn: '/login',
-    signOut: '/login',
-    error: '/login',
+    signIn: "/login",
+    error: "/login",
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user
-      const isOnDashboard = nextUrl.pathname.startsWith('/wallet')
-      const isOnAuth = nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register')
-
-      if (isOnDashboard) {
-        if (isLoggedIn) return true
-        return false
-      } else if (isLoggedIn && isOnAuth) {
-        return Response.redirect(new URL('/wallet', nextUrl))
-      }
-      return true
-    },
-    async session({ session, token }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
-      return session
-    },
     async jwt({ token, user }) {
       if (user) {
-        token.sub = user.id
+        token.id = user.id
       }
       return token
     },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
   },
-} satisfies NextAuthConfig
+  session: {
+    strategy: "jwt",
+  },
+}

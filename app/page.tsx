@@ -1,31 +1,55 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-      <div className="text-center space-y-6 max-w-md">
-        <h1 className="text-4xl font-bold text-primary">
-          SeguDigital
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Tu seguro en un toque
+    <main className="relative flex min-h-screen flex-col bg-rich-black overflow-hidden">
+      {/* Logo centrado arriba */}
+      <header className="relative z-10 w-full pt-12 pb-6">
+        <p className="text-center text-white text-lg tracking-wide">
+          segudigital
         </p>
-        <p className="text-sm text-muted-foreground">
+      </header>
+
+      {/* Smartphone mockup con gradient fade */}
+      <div className="relative flex-1 flex items-start justify-center">
+        <div className="relative w-full max-w-xs mx-auto">
+          {/* Gradient overlay para fade del mockup */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-rich-black via-rich-black/80 to-transparent pointer-events-none" />
+
+          {/* Smartphone image */}
+          <div className="relative">
+            <Image
+              src="/images/smartphone-mockup.png"
+              alt="SeguDigital App"
+              width={400}
+              height={800}
+              className="w-full h-auto object-contain"
+              priority
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Contenido inferior */}
+      <div className="relative z-20 px-6 pb-12 space-y-6 -mt-32">
+        {/* Headline */}
+        <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+          Tu seguro en<br />un toque
+        </h1>
+
+        {/* Subtítulo */}
+        <p className="text-gray-400 text-base leading-relaxed">
           Gestiona tus seguros, cotiza y realiza reclamos desde tu celular
         </p>
-        <div className="flex flex-col gap-4 pt-6">
-          <Button asChild size="lg" className="w-full">
-            <Link href="/login">
-              Iniciar Sesión
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="w-full">
-            <Link href="/register">
-              Registrarse
-            </Link>
-          </Button>
-        </div>
+
+        {/* Botón CTA */}
+        <Link
+          href="/login"
+          className="block w-full py-4 px-6 bg-lime-burst text-rich-black text-center font-semibold text-lg rounded-full transition-all hover:brightness-110 active:scale-[0.98]"
+        >
+          Gestionar seguros
+        </Link>
       </div>
     </main>
   )

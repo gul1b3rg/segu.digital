@@ -18,7 +18,13 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"],
+      },
       colors: {
+        // New brand colors
+        "rich-black": "#121416",
+        "lime-burst": "#C3FF4E",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

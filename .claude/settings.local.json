@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn:*)",
+      "Bash(node -e:*)",
+      "Bash(dir:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
