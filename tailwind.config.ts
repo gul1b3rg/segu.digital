@@ -25,6 +25,7 @@ const config = {
         // New brand colors
         "rich-black": "#121416",
         "lime-burst": "#C3FF4E",
+        "misty": "#E2EBED",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
