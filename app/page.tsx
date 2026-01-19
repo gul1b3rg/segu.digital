@@ -3,36 +3,34 @@ import Image from "next/image"
 
 export default function HomePage() {
   return (
-    <main className="relative flex min-h-screen flex-col bg-rich-black overflow-hidden">
+    <main className="relative flex h-screen flex-col bg-rich-black overflow-hidden">
       {/* Logo centrado arriba */}
-      <header className="relative z-10 w-full pt-12 pb-6">
+      <header className="relative z-10 w-full pt-12 pb-4">
         <p className="text-center text-white text-lg tracking-wide">
           segudigital
         </p>
       </header>
 
-      {/* Smartphone mockup con gradient fade */}
-      <div className="relative flex-1 flex items-start justify-center">
-        <div className="relative w-full max-w-xs mx-auto">
+      {/* Smartphone mockup - área central flexible */}
+      <div className="relative flex-1 flex items-center justify-center overflow-hidden">
+        <div className="relative w-full max-w-[280px] mx-auto">
           {/* Gradient overlay para fade del mockup */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-rich-black via-rich-black/80 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-rich-black via-rich-black/70 to-transparent pointer-events-none" />
 
           {/* Smartphone image */}
-          <div className="relative">
-            <Image
-              src="/images/smartphone-mockup.png"
-              alt="SeguDigital App"
-              width={400}
-              height={800}
-              className="w-full h-auto object-contain"
-              priority
-            />
-          </div>
+          <Image
+            src="/images/smartphone-mockup.png"
+            alt="SeguDigital App"
+            width={400}
+            height={800}
+            className="w-full h-auto object-contain"
+            priority
+          />
         </div>
       </div>
 
-      {/* Contenido inferior */}
-      <div className="relative z-20 px-6 pb-12 space-y-6 -mt-32">
+      {/* Contenido inferior - fixed en la parte baja */}
+      <div className="relative z-20 px-6 pb-10 pt-4 space-y-5 bg-gradient-to-t from-rich-black via-rich-black to-transparent">
         {/* Headline */}
         <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
           Tu seguro en<br />un toque
