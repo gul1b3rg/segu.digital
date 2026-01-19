@@ -3,7 +3,6 @@ import { Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
-import { SessionProvider } from "@/components/providers/session-provider"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -37,10 +36,8 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={cn(jakarta.variable, "font-sans antialiased min-h-screen bg-background")}>
-        <SessionProvider>
-          {children}
-          <Toaster />
-        </SessionProvider>
+        {children}
+        <Toaster />
       </body>
     </html>
   )

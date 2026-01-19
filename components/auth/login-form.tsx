@@ -6,8 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { loginUser } from "@/app/actions/auth"
-import { signIn } from "next-auth/react"
+import { loginUser, signInWithGoogle } from "@/app/actions/auth"
 
 export function LoginForm() {
   const router = useRouter()
@@ -41,7 +40,11 @@ export function LoginForm() {
   async function handleGoogleSignIn() {
     setIsLoading(true)
     try {
-      await signIn("google", { callbackUrl: "/wallet" })
+      const result = await signInWithGoogle()
+      if (result?.error) {
+        setError(result.error)
+        setIsLoading(false)
+      }
     } catch {
       setError("Error al iniciar sesión con Google")
       setIsLoading(false)

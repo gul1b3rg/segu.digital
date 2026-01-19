@@ -6,8 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { registerUser, loginUser } from "@/app/actions/auth"
-import { signIn } from "next-auth/react"
+import { registerUser, loginUser, signInWithGoogle } from "@/app/actions/auth"
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react"
 
 interface AuthCardProps {
@@ -61,15 +60,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
         return
       }
 
-      const email = formData.get("email") as string
-      const password = formData.get("password") as string
-
-      await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      })
-
+      // With Supabase, user is automatically signed in after registration
       router.push("/wallet")
       router.refresh()
     } catch {
@@ -81,7 +72,12 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
   async function handleGoogleSignIn() {
     setIsLoading(true)
     try {
-      await signIn("google", { callbackUrl: "/wallet" })
+      const result = await signInWithGoogle()
+      if (result?.error) {
+        setError(result.error)
+        setIsLoading(false)
+      }
+      // If successful, the user will be redirected by the server action
     } catch {
       setError("Error al conectar con Google")
       setIsLoading(false)

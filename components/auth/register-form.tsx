@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { registerUser } from "@/app/actions/auth"
-import { signIn } from "next-auth/react"
+import { registerUser, signInWithGoogle } from "@/app/actions/auth"
 
 export function RegisterForm() {
   const router = useRouter()
@@ -29,16 +28,7 @@ export function RegisterForm() {
         return
       }
 
-      // Después de registrarse exitosamente, iniciar sesión automáticamente
-      const email = formData.get("email") as string
-      const password = formData.get("password") as string
-
-      await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      })
-
+      // With Supabase, user is automatically signed in after registration
       router.push("/wallet")
       router.refresh()
     } catch {
@@ -50,7 +40,11 @@ export function RegisterForm() {
   async function handleGoogleSignIn() {
     setIsLoading(true)
     try {
-      await signIn("google", { callbackUrl: "/wallet" })
+      const result = await signInWithGoogle()
+      if (result?.error) {
+        setError(result.error)
+        setIsLoading(false)
+      }
     } catch {
       setError("Error al registrarse con Google")
       setIsLoading(false)

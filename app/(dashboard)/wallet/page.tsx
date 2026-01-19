@@ -1,14 +1,15 @@
-import { auth } from "@/lib/auth/auth"
+import { createClient } from "@/lib/supabase/server"
 
 export default async function WalletPage() {
-  const session = await auth()
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
   return (
     <div className="p-6 space-y-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold">Mi Billetera</h1>
         <p className="text-muted-foreground">
-          Bienvenido, {session?.user?.name || session?.user?.email}
+          Bienvenido, {user?.user_metadata?.name || user?.email}
         </p>
       </div>
 

@@ -1,17 +1,9 @@
-import { redirect } from "next/navigation"
-import { auth } from "@/lib/auth/auth"
-
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const session = await auth()
-
-  if (!session) {
-    redirect("/login")
-  }
-
+  // Auth is handled by middleware - no need for manual check here
   return (
     <div className="min-h-screen bg-background">
       {children}
