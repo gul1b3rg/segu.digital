@@ -12,7 +12,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: "/demo/with-policies", icon: Home, label: "Home" },
+  { href: "/demo/with-policies", icon: Home, label: "Inicio" },
   { href: "/demo/policies", icon: Wallet, label: "Billetera" },
   { href: "/demo/explore", icon: Search, label: "Explorar" },
   { href: "/demo/profile", icon: User, label: "Perfil" },
@@ -42,7 +42,7 @@ export function BottomNav({ className }: BottomNavProps) {
     <nav
       className={cn(
         "fixed bottom-0 left-0 right-0 z-50",
-        "bg-white rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)]",
+        "bg-rich-black rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.15)]",
         "px-2 pb-safe-bottom",
         className
       )}
@@ -61,15 +61,15 @@ export function BottomNav({ className }: BottomNavProps) {
                 "min-w-[64px] h-full px-3 py-2",
                 "transition-all duration-200",
                 isActive
-                  ? "text-primary"
-                  : "text-gray-400 hover:text-gray-600"
+                  ? "text-lime-burst"
+                  : "text-gray-400 hover:text-gray-300"
               )}
             >
               <div
                 className={cn(
                   "flex items-center justify-center",
                   "rounded-full transition-all duration-200",
-                  isActive && "bg-primary/10 px-4 py-1.5"
+                  isActive && "bg-lime-burst/15 px-4 py-1.5"
                 )}
               >
                 <Icon
