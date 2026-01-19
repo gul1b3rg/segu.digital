@@ -14,14 +14,17 @@ export function WelcomeCard({ className }: WelcomeCardProps) {
     <div
       className={cn(
         "relative mx-5 p-6 rounded-2xl overflow-hidden",
-        "bg-gradient-to-br from-primary to-primary/80",
+        "bg-primary",
         "text-white",
         className
       )}
     >
+      {/* Dark gradient corners overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/30 pointer-events-none" />
+
       {/* Shimmer animation overlay */}
       <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite]">
-        <div className="h-full w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+        <div className="h-full w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12" />
       </div>
 
       <div className="relative flex items-start gap-4">

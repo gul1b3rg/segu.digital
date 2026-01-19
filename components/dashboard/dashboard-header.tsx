@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Bell } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -8,6 +9,7 @@ interface DashboardHeaderProps {
   subtitle?: string
   showNotification?: boolean
   notificationCount?: number
+  avatarUrl?: string
   className?: string
 }
 
@@ -16,6 +18,7 @@ export function DashboardHeader({
   subtitle,
   showNotification = true,
   notificationCount = 0,
+  avatarUrl = "/images/avatar-placeholder.svg",
   className,
 }: DashboardHeaderProps) {
   return (
@@ -27,13 +30,24 @@ export function DashboardHeader({
         className
       )}
     >
-      <div className="flex-1">
-        <h1 className="text-xl font-bold text-rich-black">
-          Hola {userName}
-        </h1>
-        {subtitle && (
-          <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>
-        )}
+      <div className="flex items-center gap-3">
+        {/* Avatar */}
+        <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gray-200">
+          <Image
+            src={avatarUrl}
+            alt={userName}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <h1 className="text-xl font-bold text-rich-black">
+            Hola, {userName}
+          </h1>
+          {subtitle && (
+            <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>
+          )}
+        </div>
       </div>
 
       {showNotification && (
