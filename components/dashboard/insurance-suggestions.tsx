@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Car, Home, Heart, Shield, Plane } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { insuranceTypes } from "@/lib/mock/dashboard-data"
@@ -16,8 +17,8 @@ const iconMap: Record<string, React.ElementType> = {
 const colorMap: Record<string, string> = {
   AUTO: "bg-blue-50 text-blue-600 hover:bg-blue-100",
   HOME: "bg-orange-50 text-orange-600 hover:bg-orange-100",
-  HEALTH: "bg-red-50 text-red-500 hover:bg-red-100",
-  LIFE: "bg-purple-50 text-purple-600 hover:bg-purple-100",
+  LIFE: "bg-red-50 text-red-500 hover:bg-red-100",
+  HEALTH: "bg-purple-50 text-purple-600 hover:bg-purple-100",
   TRAVEL: "bg-cyan-50 text-cyan-600 hover:bg-cyan-100",
 }
 
@@ -55,16 +56,27 @@ export function InsuranceSuggestions({
                 "group"
               )}
             >
-              <div
-                className={cn(
-                  "flex items-center justify-center",
-                  "w-12 h-12 rounded-xl",
-                  "transition-colors",
-                  colorClass
-                )}
-              >
-                <Icon className="w-6 h-6" />
-              </div>
+              {item.image ? (
+                <div className="w-14 h-14 relative">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    "flex items-center justify-center",
+                    "w-12 h-12 rounded-xl",
+                    "transition-colors",
+                    colorClass
+                  )}
+                >
+                  <Icon className="w-6 h-6" />
+                </div>
+              )}
               <div className="text-center">
                 <p className="text-sm font-medium text-rich-black">
                   {item.name}
