@@ -12,10 +12,10 @@ export default function HomePage() {
       </header>
 
       {/* Smartphone mockup - área central flexible */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden">
+      <div className="relative flex-1 flex items-start justify-center pt-2">
         <div className="relative w-full max-w-[280px] mx-auto">
-          {/* Gradient overlay para fade del mockup */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-rich-black via-rich-black/70 to-transparent pointer-events-none" />
+          {/* Gradient overlay - fade vertical de arriba a abajo */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent via-40% to-rich-black pointer-events-none" />
 
           {/* Smartphone image */}
           <Image
