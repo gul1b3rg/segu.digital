@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function HomePage() {
   return (
-    <main className="relative flex h-screen flex-col bg-rich-black overflow-hidden">
+    <main className="relative h-screen bg-rich-black overflow-hidden">
       {/* Logo centrado arriba */}
       <header className="relative z-10 w-full pt-12 pb-4">
         <p className="text-center text-white text-lg tracking-wide">
@@ -11,11 +11,11 @@ export default function HomePage() {
         </p>
       </header>
 
-      {/* Smartphone mockup - área central flexible */}
-      <div className="relative flex-1 flex items-start justify-center pt-2">
-        <div className="relative w-full max-w-[280px] mx-auto">
-          {/* Gradient overlay - fade vertical de arriba a abajo */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent via-40% to-rich-black pointer-events-none" />
+      {/* Smartphone mockup - altura limitada con fade */}
+      <div className="absolute inset-x-0 top-20 flex justify-center h-[55vh]">
+        <div className="relative w-full max-w-[280px] h-full overflow-hidden">
+          {/* Gradient overlay - fade en la mitad inferior */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent from-30% via-rich-black/70 via-60% to-rich-black pointer-events-none" />
 
           {/* Smartphone image */}
           <Image
@@ -23,14 +23,14 @@ export default function HomePage() {
             alt="SeguDigital App"
             width={400}
             height={800}
-            className="w-full h-auto object-contain"
+            className="w-full h-auto object-contain object-top"
             priority
           />
         </div>
       </div>
 
-      {/* Contenido inferior - fixed en la parte baja */}
-      <div className="relative z-20 px-6 pb-10 pt-4 space-y-5 bg-gradient-to-t from-rich-black via-rich-black to-transparent">
+      {/* Contenido inferior - superpuesto sobre el fade */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 px-6 pb-10 space-y-5">
         {/* Headline */}
         <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
           Tu seguro en<br />un toque
