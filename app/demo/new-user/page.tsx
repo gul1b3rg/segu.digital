@@ -1,22 +1,29 @@
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
-import { ProtectionRing } from "@/components/dashboard/protection-ring"
 import { WelcomeCard } from "@/components/dashboard/welcome-card"
+import { ImportPolicyCard } from "@/components/dashboard/import-policy-card"
+import { ProfileProgress } from "@/components/dashboard/profile-progress"
 import { InsuranceSuggestions } from "@/components/dashboard/insurance-suggestions"
 import { mockNewUser } from "@/lib/mock/dashboard-data"
 
 export default function NewUserDemoPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-24">
       <DashboardHeader
         userName={mockNewUser.name}
-        subtitle="Comienza a protegerte"
+        subtitle="Bienvenido a SeguDigital"
       />
 
-      <ProtectionRing totalPolicies={0} />
+      {/* Card principal de conversión */}
+      <WelcomeCard className="mb-4" />
 
-      <WelcomeCard className="mb-6" />
+      {/* Card para importar póliza existente */}
+      <ImportPolicyCard className="mb-6" />
 
-      <InsuranceSuggestions showOnlyPopular />
+      {/* Seguros populares */}
+      <InsuranceSuggestions showOnlyPopular className="mb-6" />
+
+      {/* Widget de progreso de perfil */}
+      <ProfileProgress />
     </div>
   )
 }
