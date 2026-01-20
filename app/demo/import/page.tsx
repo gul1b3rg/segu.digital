@@ -236,7 +236,7 @@ function ImportPolicyContent() {
 
       {/* Preview Step */}
       {step === "preview" && (
-        <div className="px-5 py-6 pb-32">
+        <div className="px-5 py-6 pb-48">
           {/* Success banner */}
           <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-2xl mb-6">
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
@@ -432,7 +432,7 @@ function ImportPolicyContent() {
           </div>
 
           {/* Fixed Bottom CTA */}
-          <div className="fixed bottom-0 left-0 right-0 p-5 bg-white border-t border-gray-100">
+          <div className="fixed bottom-20 left-0 right-0 p-5 bg-white border-t border-gray-100">
             <Button
               onClick={handleConfirm}
               className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90"
