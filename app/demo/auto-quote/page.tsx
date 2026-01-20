@@ -185,14 +185,14 @@ export default function AutoQuotePage() {
   }
 
   return (
-    <div className="min-h-screen bg-misty">
+    <div className="min-h-screen bg-white">
       {/* Hero Section - Always Visible */}
-      <div className="relative">
+      <div className="relative bg-white pt-4">
         {/* Back button */}
         {step !== "hero" && (
           <button
             onClick={prevStep}
-            className="absolute top-4 left-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-sm"
+            className="absolute top-4 left-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-rich-black" />
           </button>
@@ -200,7 +200,7 @@ export default function AutoQuotePage() {
 
         {/* Progress indicator */}
         {step !== "hero" && (
-          <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5">
+          <div className="absolute top-6 right-4 z-20 flex items-center gap-1.5">
             {[1, 2, 3].map((num) => (
               <div
                 key={num}
@@ -215,32 +215,33 @@ export default function AutoQuotePage() {
           </div>
         )}
 
+        {/* Text at top */}
+        <div className="px-6 pt-2 pb-2 text-center">
+          <h1 className="text-2xl font-bold text-rich-black mb-1">
+            Aseguremos tu camino.
+          </h1>
+          {step === "hero" && (
+            <p className="text-sm text-gray-600">
+              Completa estos 3 simples pasos y asegurá tu vehículo.
+            </p>
+          )}
+        </div>
+
         {/* Hero Image */}
-        <div className="relative w-full aspect-[4/3] max-h-[320px]">
+        <div className="relative w-full h-[200px]">
           <Image
             src="/images/car-img.png"
             alt="Auto en la carretera"
             fill
-            className="object-contain object-bottom"
+            className="object-contain object-center"
             priority
           />
-          {/* Text overlay at top */}
-          <div className="absolute top-8 left-0 right-0 px-6 text-center">
-            <h1 className="text-2xl font-bold text-rich-black mb-1">
-              Aseguremos tu camino.
-            </h1>
-            {step === "hero" && (
-              <p className="text-sm text-gray-600">
-                Completa estos 3 simples pasos y asegurá tu vehículo.
-              </p>
-            )}
-          </div>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="px-5 -mt-4 relative z-10">
-        <div className="bg-white rounded-3xl shadow-lg p-6 min-h-[320px] flex flex-col">
+      <div className="px-5 relative z-10">
+        <div className="bg-gray-50 rounded-3xl p-6 min-h-[320px] flex flex-col">
           {/* Hero Step */}
           {step === "hero" && (
             <div className="flex-1 flex flex-col justify-center items-center text-center">
