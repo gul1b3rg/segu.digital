@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react"
 import { useSearchParams } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowLeft,
