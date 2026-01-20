@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import {
@@ -73,7 +73,7 @@ function formatGuaranies(value: string): string {
   return `Gs. ${value}`
 }
 
-export default function ImportPolicyPage() {
+function ImportPolicyContent() {
   const searchParams = useSearchParams()
   const importType = searchParams.get("type") || "pdf"
 
@@ -514,5 +514,19 @@ export default function ImportPolicyPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function ImportPolicyPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-white flex items-center justify-center">
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        </div>
+      }
+    >
+      <ImportPolicyContent />
+    </Suspense>
   )
 }
