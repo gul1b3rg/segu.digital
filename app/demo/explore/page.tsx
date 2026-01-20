@@ -13,7 +13,7 @@ const insuranceTypes = [
     description: "Vehículos",
     icon: Car,
     image: "/icons/car.png",
-    href: "/demo/explore/auto",
+    href: "/demo/auto-quote",
     color: "bg-blue-50",
   },
   {
