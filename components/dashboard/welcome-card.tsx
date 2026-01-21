@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { ShieldPlus, ArrowRight } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { SecurityCheckIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -29,7 +30,7 @@ export function WelcomeCard({ className }: WelcomeCardProps) {
 
       <div className="relative flex items-start gap-4">
         <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white/20">
-          <ShieldPlus className="w-7 h-7" />
+          <HugeiconsIcon icon={SecurityCheckIcon} size={28} />
         </div>
         <div className="flex-1">
           <h3 className="text-lg font-bold mb-1">
@@ -47,7 +48,7 @@ export function WelcomeCard({ className }: WelcomeCardProps) {
               )}
             >
               Explorar seguros
-              <ArrowRight className="w-4 h-4" />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
             </Button>
           </Link>
         </div>

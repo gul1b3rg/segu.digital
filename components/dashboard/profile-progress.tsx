@@ -1,7 +1,8 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { CheckCircle2, Circle } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { CheckmarkCircle02Icon, CircleIcon } from "@hugeicons/core-free-icons"
 
 interface ProfileProgressProps {
   className?: string
@@ -68,9 +69,9 @@ export function ProfileProgress({ className }: ProfileProgressProps) {
                 )}
               >
                 {step.completed ? (
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                  <HugeiconsIcon icon={CheckmarkCircle02Icon} size={20} className="text-primary flex-shrink-0" />
                 ) : (
-                  <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                  <HugeiconsIcon icon={CircleIcon} size={20} className="text-gray-300 flex-shrink-0" />
                 )}
                 <span
                   className={cn(

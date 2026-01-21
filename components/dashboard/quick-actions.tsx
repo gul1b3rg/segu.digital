@@ -1,23 +1,25 @@
 "use client"
 
 import Link from "next/link"
+import { HugeiconsIcon } from "@hugeicons/react"
 import {
-  FileText,
-  AlertCircle,
-  Phone,
-  CreditCard,
-  Search,
-  Plus,
-} from "lucide-react"
+  Pdf01Icon,
+  AlertCircleIcon,
+  Call02Icon,
+  CreditCardIcon,
+  Search01Icon,
+  Add01Icon,
+} from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { cn } from "@/lib/utils"
 
-const iconMap: Record<string, React.ElementType> = {
-  FileText,
-  AlertCircle,
-  Phone,
-  CreditCard,
-  Search,
-  Plus,
+const iconMap: Record<string, IconSvgElement> = {
+  FileText: Pdf01Icon,
+  AlertCircle: AlertCircleIcon,
+  Phone: Call02Icon,
+  CreditCard: CreditCardIcon,
+  Search: Search01Icon,
+  Plus: Add01Icon,
 }
 
 interface QuickAction {
@@ -41,7 +43,7 @@ export function QuickActions({ actions, className }: QuickActionsProps) {
       </h2>
       <div className="grid grid-cols-4 gap-3">
         {actions.map((action) => {
-          const Icon = iconMap[action.icon] || FileText
+          const icon = iconMap[action.icon] || Pdf01Icon
 
           return (
             <Link
@@ -64,7 +66,7 @@ export function QuickActions({ actions, className }: QuickActionsProps) {
                     : "bg-misty"
                 )}
               >
-                <Icon className="w-5 h-5" />
+                <HugeiconsIcon icon={icon} size={20} />
               </div>
               <span className="text-[11px] font-medium text-center leading-tight">
                 {action.label}
