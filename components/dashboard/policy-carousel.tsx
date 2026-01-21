@@ -1,7 +1,8 @@
 "use client"
 
 import { useRef } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import { PolicyCard } from "./policy-card"
 import type { MockPolicy } from "@/lib/mock/dashboard-data"
@@ -38,13 +39,13 @@ export function PolicyCarousel({ policies, className }: PolicyCarouselProps) {
             onClick={() => scroll("left")}
             className="p-1.5 rounded-full bg-white shadow-sm hover:shadow transition-shadow"
           >
-            <ChevronLeft className="w-4 h-4 text-gray-600" />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="text-gray-600" />
           </button>
           <button
             onClick={() => scroll("right")}
             className="p-1.5 rounded-full bg-white shadow-sm hover:shadow transition-shadow"
           >
-            <ChevronRight className="w-4 h-4 text-gray-600" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="text-gray-600" />
           </button>
         </div>
       </div>

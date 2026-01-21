@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { AlertTriangle, ChevronRight } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Alert02Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import type { MockClaim } from "@/lib/mock/dashboard-data"
 
@@ -35,14 +36,14 @@ export function ClaimAlert({ claim, className }: ClaimAlertProps) {
         {/* Header */}
         <div className="flex items-start gap-3 mb-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-secondary/20">
-            <AlertTriangle className="w-5 h-5 text-secondary-700" />
+            <HugeiconsIcon icon={Alert02Icon} size={20} className="text-secondary-700" />
           </div>
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-rich-black">
                 Siniestro #{claim.id.split("-").pop()}
               </h3>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="text-gray-400" />
             </div>
             <p className="text-sm text-gray-600">{claim.description}</p>
           </div>

@@ -7,7 +7,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { registerUser, loginUser, signInWithGoogle } from "@/app/actions/auth"
-import { Mail, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import {
+  Mail01Icon,
+  LockIcon,
+  UserIcon,
+  ViewIcon,
+  ViewOffIcon,
+  ArrowLeft01Icon,
+} from "@hugeicons/core-free-icons"
 
 interface AuthCardProps {
   initialTab?: "login" | "register"
@@ -91,7 +99,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
         href="/"
         className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white mb-8 hover:bg-white/20 transition-colors"
       >
-        <ArrowLeft className="w-5 h-5" />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
       </Link>
 
       {/* Header */}
@@ -155,7 +163,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Correo electrónico
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={Mail01Icon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="login-email"
                   name="email"
@@ -173,7 +181,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Contraseña
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={LockIcon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="login-password"
                   name="password"
@@ -188,7 +196,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  <HugeiconsIcon icon={showPassword ? ViewOffIcon : ViewIcon} size={20} />
                 </button>
               </div>
             </div>
@@ -221,7 +229,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Nombre completo
               </Label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={UserIcon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="register-name"
                   name="name"
@@ -239,7 +247,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Correo electrónico
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={Mail01Icon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="register-email"
                   name="email"
@@ -257,7 +265,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Contraseña
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={LockIcon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="register-password"
                   name="password"
@@ -272,7 +280,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  <HugeiconsIcon icon={showPassword ? ViewOffIcon : ViewIcon} size={20} />
                 </button>
               </div>
             </div>
@@ -282,7 +290,7 @@ export function AuthCard({ initialTab = "login" }: AuthCardProps) {
                 Confirmar contraseña
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HugeiconsIcon icon={LockIcon} size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <Input
                   id="register-confirm"
                   name="confirmPassword"

@@ -1,6 +1,7 @@
 "use client"
 
-import { Check } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Tick01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import type { ClaimStep } from "@/lib/mock/dashboard-data"
 
@@ -39,7 +40,7 @@ export function ClaimTracker({ steps, className }: ClaimTrackerProps) {
                     )}
                   >
                     {step.completed ? (
-                      <Check className="w-4 h-4" />
+                      <HugeiconsIcon icon={Tick01Icon} size={16} />
                     ) : (
                       <span className="text-xs font-semibold">
                         {index + 1}

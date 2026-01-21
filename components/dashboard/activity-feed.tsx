@@ -1,25 +1,27 @@
 "use client"
 
+import { HugeiconsIcon } from "@hugeicons/react"
 import {
-  AlertTriangle,
-  CreditCard,
-  FileText,
-  RefreshCw,
-  UserCheck,
-  Calendar,
-  ChevronRight,
-} from "lucide-react"
+  Alert02Icon,
+  CreditCardIcon,
+  Pdf01Icon,
+  RefreshIcon,
+  UserCheck01Icon,
+  Calendar01Icon,
+  ArrowRight01Icon,
+} from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { cn } from "@/lib/utils"
 import type { MockActivity } from "@/lib/mock/dashboard-data"
 import { formatCurrency } from "@/lib/mock/dashboard-data"
 
-const iconMap: Record<string, React.ElementType> = {
-  AlertTriangle,
-  CreditCard,
-  FileText,
-  RefreshCw,
-  UserCheck,
-  Calendar,
+const iconMap: Record<string, IconSvgElement> = {
+  AlertTriangle: Alert02Icon,
+  CreditCard: CreditCardIcon,
+  FileText: Pdf01Icon,
+  RefreshCw: RefreshIcon,
+  UserCheck: UserCheck01Icon,
+  Calendar: Calendar01Icon,
 }
 
 const typeColors: Record<string, string> = {
@@ -53,7 +55,7 @@ export function ActivityFeed({
         {showViewAll && (
           <button className="text-xs text-primary font-medium flex items-center gap-1">
             Ver todo
-            <ChevronRight className="w-3 h-3" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
           </button>
         )}
       </div>
@@ -61,7 +63,7 @@ export function ActivityFeed({
       {/* Activity list */}
       <div className="space-y-2">
         {activities.map((activity) => {
-          const Icon = iconMap[activity.icon] || FileText
+          const icon = iconMap[activity.icon] || Pdf01Icon
           const colorClass = typeColors[activity.type] || typeColors.DOCUMENT
 
           return (
@@ -81,7 +83,7 @@ export function ActivityFeed({
                   colorClass
                 )}
               >
-                <Icon className="w-5 h-5" />
+                <HugeiconsIcon icon={icon} size={20} />
               </div>
 
               {/* Content */}

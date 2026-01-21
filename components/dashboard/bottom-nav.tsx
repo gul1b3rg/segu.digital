@@ -2,20 +2,27 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Wallet, Search, User } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import {
+  Home01Icon,
+  Wallet01Icon,
+  Search01Icon,
+  UserIcon,
+} from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { cn } from "@/lib/utils"
 
 interface NavItem {
   href: string
-  icon: React.ElementType
+  icon: IconSvgElement
   label: string
 }
 
 const navItems: NavItem[] = [
-  { href: "/demo/with-policies", icon: Home, label: "Inicio" },
-  { href: "/demo/policies", icon: Wallet, label: "Billetera" },
-  { href: "/demo/explore", icon: Search, label: "Explorar" },
-  { href: "/demo/profile", icon: User, label: "Perfil" },
+  { href: "/demo/with-policies", icon: Home01Icon, label: "Inicio" },
+  { href: "/demo/policies", icon: Wallet01Icon, label: "Billetera" },
+  { href: "/demo/explore", icon: Search01Icon, label: "Explorar" },
+  { href: "/demo/profile", icon: UserIcon, label: "Perfil" },
 ]
 
 interface BottomNavProps {
@@ -50,7 +57,6 @@ export function BottomNav({ className }: BottomNavProps) {
       <div className="flex items-center justify-around h-16 max-w-md mx-auto">
         {navItems.map((item) => {
           const isActive = getIsActive(item.href)
-          const Icon = item.icon
 
           return (
             <Link
@@ -72,11 +78,9 @@ export function BottomNav({ className }: BottomNavProps) {
                   isActive && "bg-lime-burst/15 px-4 py-1.5"
                 )}
               >
-                <Icon
-                  className={cn(
-                    "w-5 h-5 transition-all",
-                    isActive && "w-5 h-5"
-                  )}
+                <HugeiconsIcon
+                  icon={item.icon}
+                  size={20}
                   strokeWidth={isActive ? 2.5 : 2}
                 />
                 {isActive && (

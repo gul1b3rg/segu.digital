@@ -2,16 +2,26 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Car, Home, Heart, MoreHorizontal, ArrowRight, Shield, Clock, ThumbsUp } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Car01Icon, Home01Icon, FavouriteIcon, MoreHorizontalIcon, ArrowRight01Icon, Shield01Icon, Clock01Icon, ThumbsUpIcon } from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { cn } from "@/lib/utils"
 
-const insuranceTypes = [
+const insuranceTypes: {
+  id: string
+  name: string
+  description: string
+  icon: IconSvgElement
+  image?: string
+  href: string
+  color: string
+}[] = [
   {
     id: "auto",
     name: "Auto",
     description: "Vehículos",
-    icon: Car,
+    icon: Car01Icon,
     image: "/icons/car.png",
     href: "/demo/auto-quote",
     color: "bg-blue-50",
@@ -20,7 +30,7 @@ const insuranceTypes = [
     id: "home",
     name: "Hogar",
     description: "Casa y depto",
-    icon: Home,
+    icon: Home01Icon,
     image: "/icons/house.png",
     href: "/demo/explore/home",
     color: "bg-orange-50",
@@ -29,7 +39,7 @@ const insuranceTypes = [
     id: "life",
     name: "Vida",
     description: "Protección familiar",
-    icon: Heart,
+    icon: FavouriteIcon,
     image: "/icons/life.png",
     href: "/demo/explore/life",
     color: "bg-red-50",
@@ -38,25 +48,29 @@ const insuranceTypes = [
     id: "other",
     name: "Otros",
     description: "Más opciones",
-    icon: MoreHorizontal,
+    icon: MoreHorizontalIcon,
     href: "/demo/explore/other",
     color: "bg-gray-100",
   },
 ]
 
-const benefits = [
+const benefits: {
+  icon: IconSvgElement
+  title: string
+  description: string
+}[] = [
   {
-    icon: Clock,
+    icon: Clock01Icon,
     title: "En minutos",
     description: "Cotiza y contrata en menos de 5 minutos",
   },
   {
-    icon: Shield,
+    icon: Shield01Icon,
     title: "100% Digital",
     description: "Sin papeles ni trámites presenciales",
   },
   {
-    icon: ThumbsUp,
+    icon: ThumbsUpIcon,
     title: "Mejores precios",
     description: "Comparamos entre aseguradoras por ti",
   },
@@ -106,9 +120,7 @@ export default function ExplorePage() {
           ¿Qué quieres proteger?
         </h3>
         <div className="grid grid-cols-4 gap-3">
-          {insuranceTypes.map((type) => {
-            const Icon = type.icon
-            return (
+          {insuranceTypes.map((type) => (
               <Link
                 key={type.id}
                 href={type.href}
@@ -136,7 +148,7 @@ export default function ExplorePage() {
                       type.color
                     )}
                   >
-                    <Icon className="w-6 h-6 text-gray-600" />
+                    <HugeiconsIcon icon={type.icon} size={24} className="text-gray-600" />
                   </div>
                 )}
                 <div className="text-center">
@@ -145,8 +157,7 @@ export default function ExplorePage() {
                   </p>
                 </div>
               </Link>
-            )
-          })}
+            ))}
         </div>
       </div>
 
@@ -156,15 +167,13 @@ export default function ExplorePage() {
           ¿Por qué con SeguDigital?
         </h3>
         <div className="space-y-3">
-          {benefits.map((benefit) => {
-            const Icon = benefit.icon
-            return (
+          {benefits.map((benefit) => (
               <div
                 key={benefit.title}
                 className="flex items-start gap-4 p-4 bg-white rounded-2xl"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10">
-                  <Icon className="w-5 h-5 text-primary" />
+                  <HugeiconsIcon icon={benefit.icon} size={20} className="text-primary" />
                 </div>
                 <div className="flex-1">
                   <h4 className="text-sm font-semibold text-rich-black">
@@ -175,8 +184,7 @@ export default function ExplorePage() {
                   </p>
                 </div>
               </div>
-            )
-          })}
+            ))}
         </div>
       </div>
 
@@ -201,7 +209,7 @@ export default function ExplorePage() {
                 "transition-transform hover:scale-105"
               )}
             >
-              <ArrowRight className="w-5 h-5 text-rich-black" />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="text-rich-black" />
             </Link>
           </div>
         </div>

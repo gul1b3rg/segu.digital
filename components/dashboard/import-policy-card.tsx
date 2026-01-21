@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Upload, FileText, Camera, Link2 } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Upload04Icon, Pdf01Icon, Camera01Icon, Link01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 
 interface ImportPolicyCardProps {
@@ -24,7 +25,7 @@ export function ImportPolicyCard({ className }: ImportPolicyCardProps) {
       <div className="relative">
         <div className="flex items-start gap-4">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/10">
-            <Upload className="w-6 h-6 text-lime-burst" />
+            <HugeiconsIcon icon={Upload04Icon} size={24} className="text-lime-burst" />
           </div>
           <div className="flex-1">
             <h3 className="text-base font-semibold text-white mb-1">
@@ -48,7 +49,7 @@ export function ImportPolicyCard({ className }: ImportPolicyCardProps) {
               "transition-colors"
             )}
           >
-            <FileText className="w-4 h-4" />
+            <HugeiconsIcon icon={Pdf01Icon} size={16} />
             PDF
           </Link>
           <Link
@@ -61,7 +62,7 @@ export function ImportPolicyCard({ className }: ImportPolicyCardProps) {
               "transition-colors"
             )}
           >
-            <Camera className="w-4 h-4" />
+            <HugeiconsIcon icon={Camera01Icon} size={16} />
             Foto
           </Link>
           <Link
@@ -74,7 +75,7 @@ export function ImportPolicyCard({ className }: ImportPolicyCardProps) {
               "transition-colors"
             )}
           >
-            <Link2 className="w-4 h-4" />
+            <HugeiconsIcon icon={Link01Icon} size={16} />
             Manual
           </Link>
         </div>

@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { Bell } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Notification01Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 
 interface DashboardHeaderProps {
@@ -59,7 +60,7 @@ export function DashboardHeader({
             "transition-all hover:shadow-md"
           )}
         >
-          <Bell className="w-5 h-5 text-gray-600" />
+          <HugeiconsIcon icon={Notification01Icon} size={20} className="text-gray-600" />
           {notificationCount > 0 && (
             <span
               className={cn(

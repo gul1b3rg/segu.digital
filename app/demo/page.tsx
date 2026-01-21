@@ -1,27 +1,35 @@
 import Link from "next/link"
-import { UserPlus, Shield, AlertTriangle, ChevronRight } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { UserAdd01Icon, Shield01Icon, Alert02Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { cn } from "@/lib/utils"
 
-const demoPages = [
+const demoPages: {
+  href: string
+  title: string
+  description: string
+  icon: IconSvgElement
+  color: string
+}[] = [
   {
     href: "/demo/new-user",
     title: "Usuario nuevo",
     description: "Vista de un usuario que acaba de registrarse, sin pólizas activas",
-    icon: UserPlus,
+    icon: UserAdd01Icon,
     color: "bg-blue-50 text-blue-600",
   },
   {
     href: "/demo/with-policies",
     title: "Con pólizas",
     description: "Vista de un usuario con múltiples pólizas de seguro activas",
-    icon: Shield,
+    icon: Shield01Icon,
     color: "bg-primary/10 text-primary",
   },
   {
     href: "/demo/with-claim",
     title: "Con siniestro",
     description: "Vista de un usuario que tiene un siniestro activo en proceso",
-    icon: AlertTriangle,
+    icon: Alert02Icon,
     color: "bg-secondary/20 text-secondary-700",
   },
 ]
@@ -41,10 +49,7 @@ export default function DemoIndexPage() {
 
       {/* Demo cards */}
       <div className="space-y-3">
-        {demoPages.map((page) => {
-          const Icon = page.icon
-
-          return (
+        {demoPages.map((page) => (
             <Link
               key={page.href}
               href={page.href}
@@ -62,7 +67,7 @@ export default function DemoIndexPage() {
                   page.color
                 )}
               >
-                <Icon className="w-6 h-6" />
+                <HugeiconsIcon icon={page.icon} size={24} />
               </div>
 
               <div className="flex-1">
@@ -72,10 +77,9 @@ export default function DemoIndexPage() {
                 <p className="text-sm text-gray-500">{page.description}</p>
               </div>
 
-              <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-primary transition-colors" />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="text-gray-300 group-hover:text-primary transition-colors" />
             </Link>
-          )
-        })}
+          ))}
       </div>
 
       {/* Info */}

@@ -2,16 +2,24 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Car, Home, Heart, Shield, Plane } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import {
+  Car01Icon,
+  Home01Icon,
+  FavouriteIcon,
+  Shield01Icon,
+  Airplane01Icon,
+} from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { cn } from "@/lib/utils"
 import { insuranceTypes } from "@/lib/mock/dashboard-data"
 
-const iconMap: Record<string, React.ElementType> = {
-  Car,
-  Home,
-  Heart,
-  Shield,
-  Plane,
+const iconMap: Record<string, IconSvgElement> = {
+  Car: Car01Icon,
+  Home: Home01Icon,
+  Heart: FavouriteIcon,
+  Shield: Shield01Icon,
+  Plane: Airplane01Icon,
 }
 
 const colorMap: Record<string, string> = {
@@ -42,7 +50,7 @@ export function InsuranceSuggestions({
       </h2>
       <div className="grid grid-cols-3 gap-3">
         {items.map((item) => {
-          const Icon = iconMap[item.icon] || Shield
+          const icon = iconMap[item.icon] || Shield01Icon
           const colorClass = colorMap[item.type] || colorMap.LIFE
 
           return (
@@ -74,7 +82,7 @@ export function InsuranceSuggestions({
                     colorClass
                   )}
                 >
-                  <Icon className="w-6 h-6" />
+                  <HugeiconsIcon icon={icon} size={24} />
                 </div>
               )}
               <div className="text-center">

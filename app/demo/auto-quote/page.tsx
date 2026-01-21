@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { ArrowRight, ArrowLeft, Car, Briefcase, Shield, Check, HelpCircle, Phone } from "lucide-react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowRight01Icon, ArrowLeft01Icon, Car01Icon, Briefcase01Icon, Shield01Icon, Tick01Icon, HelpCircleIcon, Call02Icon } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -194,7 +195,7 @@ export default function AutoQuotePage() {
             onClick={prevStep}
             className="absolute top-4 left-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 text-rich-black" />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="text-rich-black" />
           </button>
         )}
 
@@ -246,7 +247,7 @@ export default function AutoQuotePage() {
           {step === "hero" && (
             <div className="flex-1 flex flex-col justify-center items-center text-center">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Car className="w-8 h-8 text-primary" />
+                <HugeiconsIcon icon={Car01Icon} size={32} className="text-primary" />
               </div>
               <h2 className="text-lg font-semibold text-rich-black mb-2">
                 Cotiza tu seguro de auto
@@ -259,7 +260,7 @@ export default function AutoQuotePage() {
                 className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90"
               >
                 Comenzar cotización
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
               </Button>
             </div>
           )}
@@ -294,7 +295,7 @@ export default function AutoQuotePage() {
                 className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
               >
                 Continuar
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
               </Button>
             </div>
           )}
@@ -329,9 +330,10 @@ export default function AutoQuotePage() {
                       usage === "particular" ? "bg-primary/10" : "bg-gray-100"
                     )}
                   >
-                    <Car
+                    <HugeiconsIcon
+                      icon={Car01Icon}
+                      size={24}
                       className={cn(
-                        "w-6 h-6",
                         usage === "particular" ? "text-primary" : "text-gray-500"
                       )}
                     />
@@ -342,7 +344,7 @@ export default function AutoQuotePage() {
                   </div>
                   {usage === "particular" && (
                     <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                      <Check className="w-4 h-4 text-white" />
+                      <HugeiconsIcon icon={Tick01Icon} size={16} className="text-white" />
                     </div>
                   )}
                 </button>
@@ -362,9 +364,10 @@ export default function AutoQuotePage() {
                       usage === "comercial" ? "bg-primary/10" : "bg-gray-100"
                     )}
                   >
-                    <Briefcase
+                    <HugeiconsIcon
+                      icon={Briefcase01Icon}
+                      size={24}
                       className={cn(
-                        "w-6 h-6",
                         usage === "comercial" ? "text-primary" : "text-gray-500"
                       )}
                     />
@@ -377,7 +380,7 @@ export default function AutoQuotePage() {
                   </div>
                   {usage === "comercial" && (
                     <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                      <Check className="w-4 h-4 text-white" />
+                      <HugeiconsIcon icon={Tick01Icon} size={16} className="text-white" />
                     </div>
                   )}
                 </button>
@@ -388,7 +391,7 @@ export default function AutoQuotePage() {
                 className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
               >
                 Continuar
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
               </Button>
             </div>
           )}
@@ -429,9 +432,10 @@ export default function AutoQuotePage() {
                             selectedPlan === planKey ? "bg-primary/10" : plan.iconBg
                           )}
                         >
-                          <Shield
+                          <HugeiconsIcon
+                            icon={Shield01Icon}
+                            size={20}
                             className={cn(
-                              "w-5 h-5",
                               selectedPlan === planKey ? "text-primary" : plan.iconColor
                             )}
                           />
@@ -441,7 +445,7 @@ export default function AutoQuotePage() {
                             <p className="font-bold text-rich-black">{plan.name}</p>
                             {selectedPlan === planKey && (
                               <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                                <Check className="w-3 h-3 text-white" />
+                                <HugeiconsIcon icon={Tick01Icon} size={12} className="text-white" />
                               </div>
                             )}
                           </div>
@@ -460,7 +464,7 @@ export default function AutoQuotePage() {
                 {selectedPlan && plans[selectedPlan].requiresSum
                   ? "Continuar"
                   : "Ver cotización"}
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
               </Button>
             </div>
           )}
@@ -503,7 +507,7 @@ export default function AutoQuotePage() {
                 className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
               >
                 Ver cotización
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
               </Button>
             </div>
           )}
@@ -521,7 +525,7 @@ export default function AutoQuotePage() {
                     selectedPlan === "blindado" && "bg-secondary/20 text-amber-700"
                   )}
                 >
-                  <Shield className="w-3.5 h-3.5" />
+                  <HugeiconsIcon icon={Shield01Icon} size={14} />
                   {plans[selectedPlan].name}
                 </span>
               </div>
@@ -598,7 +602,7 @@ export default function AutoQuotePage() {
                       )}
                     >
                       {coverage.included ? (
-                        <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                        <HugeiconsIcon icon={Tick01Icon} size={14} className="text-primary flex-shrink-0" />
                       ) : (
                         <div className="w-3.5 h-3.5 flex-shrink-0" />
                       )}
@@ -614,7 +618,7 @@ export default function AutoQuotePage() {
                   Contratar ahora
                 </Button>
                 <button className="w-full flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-gray-700">
-                  <HelpCircle className="w-4 h-4" />
+                  <HugeiconsIcon icon={HelpCircleIcon} size={16} />
                   ¿Alguna duda? Contactanos
                 </button>
               </div>
@@ -626,7 +630,7 @@ export default function AutoQuotePage() {
       {/* Help floating button */}
       {step !== "hero" && step !== "result" && (
         <button className="fixed bottom-24 right-5 w-12 h-12 rounded-full bg-rich-black text-white flex items-center justify-center shadow-lg hover:bg-gray-800 transition-colors">
-          <Phone className="w-5 h-5" />
+          <HugeiconsIcon icon={Call02Icon} size={20} />
         </button>
       )}
     </div>

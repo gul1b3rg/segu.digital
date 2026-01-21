@@ -3,23 +3,24 @@
 import { useState, useCallback, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
+import { HugeiconsIcon } from "@hugeicons/react"
 import {
-  ArrowLeft,
-  Upload,
-  FileText,
-  Check,
-  Car,
-  Calendar,
-  Shield,
-  Building2,
-  User,
-  Hash,
-  AlertCircle,
-  ChevronDown,
-  ChevronUp,
+  ArrowLeft01Icon,
+  Upload04Icon,
+  Pdf01Icon,
+  Tick01Icon,
+  Car01Icon,
+  Calendar01Icon,
+  Shield01Icon,
+  Building01Icon,
+  UserIcon,
+  GridIcon,
+  AlertCircleIcon,
+  ArrowDown01Icon,
+  ArrowUp01Icon,
   PartyPopper,
-  Loader2,
-} from "lucide-react"
+  Loading03Icon,
+} from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -146,7 +147,7 @@ function ImportPolicyContent() {
             href="/demo/new-user"
             className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 text-rich-black" />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="text-rich-black" />
           </Link>
           <h1 className="text-lg font-semibold text-rich-black">{getTitle()}</h1>
           <div className="w-10" />
@@ -182,7 +183,7 @@ function ImportPolicyContent() {
               // Processing state
               <div className="text-center">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                  <HugeiconsIcon icon={Loading03Icon} size={32} className="text-primary animate-spin" />
                 </div>
                 <p className="font-semibold text-rich-black mb-1">
                   Procesando documento...
@@ -193,7 +194,7 @@ function ImportPolicyContent() {
               // Upload state
               <>
                 <div className="w-20 h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-4">
-                  <FileText className="w-10 h-10 text-gray-400" />
+                  <HugeiconsIcon icon={Pdf01Icon} size={40} className="text-gray-400" />
                 </div>
                 <p className="font-semibold text-rich-black mb-1">
                   Arrastra tu archivo aquí
@@ -208,7 +209,7 @@ function ImportPolicyContent() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <div className="flex items-center gap-2 text-xs text-gray-400">
-                  <Upload className="w-4 h-4" />
+                  <HugeiconsIcon icon={Upload04Icon} size={16} />
                   <span>PDF hasta 10MB</span>
                 </div>
               </>
@@ -218,7 +219,7 @@ function ImportPolicyContent() {
           {/* Tips */}
           <div className="mt-6 p-4 bg-blue-50 rounded-2xl">
             <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+              <HugeiconsIcon icon={AlertCircleIcon} size={20} className="text-blue-500 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-medium text-blue-900 mb-1">
                   Consejos para mejores resultados
@@ -240,7 +241,7 @@ function ImportPolicyContent() {
           {/* Success banner */}
           <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-2xl mb-6">
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <Check className="w-5 h-5 text-white" />
+              <HugeiconsIcon icon={Tick01Icon} size={20} className="text-white" />
             </div>
             <div>
               <p className="font-semibold text-rich-black">
@@ -256,7 +257,7 @@ function ImportPolicyContent() {
           <div className="bg-gray-50 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                <Building2 className="w-6 h-6 text-gray-600" />
+                <HugeiconsIcon icon={Building01Icon} size={24} className="text-gray-600" />
               </div>
               <div className="flex-1">
                 <p className="font-bold text-rich-black">
@@ -271,7 +272,7 @@ function ImportPolicyContent() {
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Hash className="w-4 h-4" />
+              <HugeiconsIcon icon={GridIcon} size={16} />
               <span>Póliza: {mockExtractedData.policy.number}</span>
             </div>
           </div>
@@ -279,7 +280,7 @@ function ImportPolicyContent() {
           {/* Validity */}
           <div className="bg-gray-50 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-2 mb-3">
-              <Calendar className="w-4 h-4 text-gray-500" />
+              <HugeiconsIcon icon={Calendar01Icon} size={16} className="text-gray-500" />
               <p className="font-semibold text-rich-black text-sm">Vigencia</p>
             </div>
             <div className="flex items-center justify-between">
@@ -307,7 +308,7 @@ function ImportPolicyContent() {
           {/* Insured Person */}
           <div className="bg-gray-50 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-2 mb-3">
-              <User className="w-4 h-4 text-gray-500" />
+              <HugeiconsIcon icon={UserIcon} size={16} className="text-gray-500" />
               <p className="font-semibold text-rich-black text-sm">Asegurado</p>
             </div>
             <p className="font-semibold text-rich-black">
@@ -321,7 +322,7 @@ function ImportPolicyContent() {
           {/* Vehicle Data */}
           <div className="bg-gray-50 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-2 mb-3">
-              <Car className="w-4 h-4 text-gray-500" />
+              <HugeiconsIcon icon={Car01Icon} size={16} className="text-gray-500" />
               <p className="font-semibold text-rich-black text-sm">
                 Datos del Vehículo
               </p>
@@ -387,7 +388,7 @@ function ImportPolicyContent() {
           {/* Coverages */}
           <div className="bg-gray-50 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-4 h-4 text-gray-500" />
+              <HugeiconsIcon icon={Shield01Icon} size={16} className="text-gray-500" />
               <p className="font-semibold text-rich-black text-sm">Coberturas</p>
             </div>
             <div className="space-y-2">
@@ -399,7 +400,7 @@ function ImportPolicyContent() {
                     className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0"
                   >
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-primary" />
+                      <HugeiconsIcon icon={Tick01Icon} size={16} className="text-primary" />
                       <span className="text-sm text-rich-black">
                         {coverage.name}
                       </span>
@@ -419,12 +420,12 @@ function ImportPolicyContent() {
               >
                 {showAllCoverages ? (
                   <>
-                    Ver menos <ChevronUp className="w-4 h-4" />
+                    Ver menos <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
                   </>
                 ) : (
                   <>
                     Ver todas ({mockExtractedData.coverage.length}){" "}
-                    <ChevronDown className="w-4 h-4" />
+                    <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                   </>
                 )}
               </button>
@@ -447,7 +448,7 @@ function ImportPolicyContent() {
       {step === "saving" && (
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-5">
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+            <HugeiconsIcon icon={Loading03Icon} size={40} className="text-primary animate-spin" />
           </div>
           <h2 className="text-xl font-bold text-rich-black mb-2">
             Guardando tu póliza...
@@ -462,9 +463,9 @@ function ImportPolicyContent() {
       {step === "success" && (
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-5">
           <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6 relative">
-            <PartyPopper className="w-12 h-12 text-primary" />
+            <HugeiconsIcon icon={PartyPopper} size={48} className="text-primary" />
             <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-              <Check className="w-5 h-5 text-rich-black" />
+              <HugeiconsIcon icon={Tick01Icon} size={20} className="text-rich-black" />
             </div>
           </div>
           <h2 className="text-2xl font-bold text-rich-black mb-2 text-center">
@@ -482,7 +483,7 @@ function ImportPolicyContent() {
           <div className="w-full max-w-sm bg-gray-50 rounded-2xl p-4 mb-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                <Car className="w-6 h-6 text-blue-600" />
+                <HugeiconsIcon icon={Car01Icon} size={24} className="text-blue-600" />
               </div>
               <div className="flex-1">
                 <p className="font-bold text-rich-black">
@@ -522,7 +523,7 @@ export default function ImportPolicyPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-white flex items-center justify-center">
-          <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <HugeiconsIcon icon={Loading03Icon} size={32} className="text-primary animate-spin" />
         </div>
       }
     >
